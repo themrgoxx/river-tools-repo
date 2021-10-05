@@ -1,0 +1,63 @@
+.TVChartContainer {
+	height: 100vh;
+	padding-top: 17px;
+
+	
+}
+
+.layout__area--left {
+    display: none;
+}
+
+.div#drawing-toolbar {
+	display: none!important;
+}
+
+
+#tv_chart_container  #drawing-toolbar {
+	display: none !important;
+	position: relative;
+	flex: 1 0 auto;
+	flex-direction: column;
+}
+.scrollWrap-3gtPS0Fe .noScrollBar-ieMwbfur{
+	display: none!important;
+}
+
+@media only screen and (max-width: 600px) {
+	.TVChartContainer {
+		height: 400px;
+		padding-top: 17px;
+		margin-left: 0px;
+	
+		
+	}
+}
+
+/* // 12 pro */
+@media only screen 
+	and (device-width: 390px) 
+	and (device-height: 844px) 
+	and (-webkit-device-pixel-ratio: 3) {
+		.TVChartContainer {
+			height: 400px;
+			padding-top: 17px;
+			margin-left: 0px;
+		
+			
+		}
+	}
+/* // 12 pro max  */
+	@media only screen 
+	and (device-width: 428px) 
+	and (device-height: 926px) 
+	and (-webkit-device-pixel-ratio: 3) {
+		.TVChartContainer {
+			height: 400px;
+			padding-top: 17px;
+			margin-left: 0px;
+		
+			
+		}
+	}
+
