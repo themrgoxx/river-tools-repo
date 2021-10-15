@@ -100,13 +100,13 @@ const Navbar = () => {
                                                        </div>
                                                    </li> */}
                                 <li className="list-inline-item">
-                                    <div className="row">
+                                    {/* <div className="row">
                                         <div className="col-sm-12">
                                             <button className="btn-common my-2 my-sm-0" type="button" onClick={ConnectionHandler}>
                                                 {account ? "Disconnect Wallet" : "Connect Wallet"} </button>
 
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </li>
                             </ul>
                         </form>
