@@ -171,9 +171,98 @@
         position: relative;
         top: -15px;
     }
+.outer-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    .up-wallet{
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left{
+            i{
+                color: #1ab9af;
+                margin-right: 10px;
+            }
+            h5{
+                font-size: 30px;
+                color: #1ab9af; 
+            }
+        }
+        .right{
+            button{
+                background-color: #f9c73c;
+                color: #ffffff;
+                border-radius: 50px;
+                box-shadow: none;
+                border: none;
+                padding: 8px 15px;
+                font-size: 20px;
+            }
+        }
+       
+    }
+    .lower-contentt{
+        margin-top: 20px;
+        .lefts{
+            p{
+                color: #1ab9af; 
+            }
+        }
+        .rights{
+            p{
+                color: #1ab9af; 
+            }
+        }
+    }
 
     .inner-wallet {
-      
+        .yellow{
+            .inner{
+                background-color: #f9c73c;
+                height: 30px;
+                width: 50px;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 10px;
+                margin-top: 4px;
+                i{
+                    color: #ffffff;
+                }
+            }
+        }
+        .socisls{
+            display: flex;
+            .inner{
+                margin-left: 10px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #1ab9af;
+                i{
+                    font-size: 20px;
+                }
+            }
+        }
+        p{
+            color: #1ab9af;
+            font-size: 300;
+        }
+      h4{
+          font-size: 22px;
+          color: #1ab9af;
+          i{
+              font-size: 16px;
+              color: #f9c73c;
+          }
+      }
         h6 {
             font-size: 13px;
             margin-bottom: 5px;

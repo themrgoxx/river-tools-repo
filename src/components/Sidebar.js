@@ -61,8 +61,61 @@ const Sidebar = () => {
             <div className="head-tile d-none d-sm-block">
                 <div className="row">
                     <div className="col-sm-12 col-6 p-0">
-                        <div className="inner-wallet">
-                            <h4 className="white">My Wallet</h4>
+
+                        <div className="inner-wallet outer-main">
+                            <div className="left">
+                                <h4 className="white">River Tools Token <i class="far fa-clone"></i></h4>
+                                <p>[ TOOLS ] ajkdzx7zxy32jnsdn...</p>
+                            </div>
+                            <div className="outerss">
+                                <div className="socisls">
+                                    <div className="inner">
+                                        <i class="fab fa-telegram-plane"></i>
+                                    </div>
+                                    <div className="inner">
+                                        <i class="fab fa-twitter"></i>
+                                    </div>
+                                    <div className="inner">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                </div>
+                                <div className="yellow d-flex">
+                                    <div className="inner">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <div className="inner">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="up-wallet">
+                            <div className="left">
+                                <h5><i class="fas fa-arrow-alt-circle-up"></i>$0.68345</h5>
+                            </div>
+                            <div className="right">
+                                <button>Buy / Sell</button>
+                            </div>
+                        </div>
+                        <div className="lower-contentt d-flex justify-content-between">
+                            <div className="lefts">
+                                <p>Total Liquidity:</p>
+                                <p>Daily volume:</p>
+                                <p>Pooled MOVR:</p>
+                                <p>Pooled TOOLS:</p>
+                                <p>Total tx:</p>
+                                <p>Holders:</p>
+                                <p>Diluted Market Cap:</p>
+                            </div>
+                            <div className="rights text-right">
+                                <p>US $116,402</p>
+                                <p>US $116,402</p>
+                                <p>US $116,402</p>
+                                <p>US $116,402</p>
+                                <p>US $116,402</p>
+                                <p>1000</p>
+                                <p>US $116,402</p>
+                            </div>
                         </div>
                     </div>
                     {/* <div className="col-sm-12 col-6 p-0 text-right">
@@ -86,6 +139,7 @@ const Sidebar = () => {
 
                         </div>
                     </div> */}
+
                 </div>
                 <div className="brdr"></div>
                 {!account ?
