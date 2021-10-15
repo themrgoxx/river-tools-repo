@@ -41,7 +41,7 @@ function App() {
             <Switch>
               <Route exact path='/'  >
                 <Navbar />
-                <Abc />
+                {/* <Abc /> */}
 
                 <div class="row">
                   <div class="col-sm-8">

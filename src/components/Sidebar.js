@@ -1,59 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import '../css/maintile.scss';
-import { useWeb3React } from '@web3-react/core'
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 const Sidebar = () => {
-    const { account } = useWeb3React();
-    const [getallToken, setAllTokens] = useState([])
-    const Get_data = `
-      {
-        ethereum(network: bsc) {
-          address(address: {is: "${account}" }){
-            balances {
-              value
-              currency {
-                address
-                symbol
-                tokenType
-              }
-            }
-          }
-        }
-      }`
-    const fetchData = async () => {
-        if (account) {
-            const queryResult = await axios.post('https://graphql.bitquery.io/', { query: Get_data });
-            if (queryResult.data.data) {
-                setAllTokens(queryResult.data.data.ethereum.address[0].balances)
-            }
-        }
+    const [getallTokens, setAllTokens] = useState([])
+    const counter = useSelector(state => state.Getinput.input);
+    const address= counter ? counter : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
+
+       const getdata = () => {
+        axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/tokenDetails/" + address)
+            .then((response) => {
+                setAllTokens(response.data)
+                // setUserDetail(response.data.detail.user)
+                // setOpen(true)
+
+            })
     }
 
-    const token_data = getallToken.map((elem) => {
-        const { currency, value } = elem;
-        return (
-            <>
-                <tr>
-                    <td>
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                                <h6 className="white yoyo">{currency.symbol}</h6>
-                            </li>
-                        </ul>
-                    </td>
-                    {/* <td className="common yoyo">{currency.symbol}</td> */}
-                    <td>
-                        <h6 className="white yoyo">{value}</h6>
-                        {/* <h6 className="common yoyo">$120.00</h6> */}
-                    </td>
-                </tr>
-            </>
-        )
-    })
+    console.log("mmmmmmmmmmmmmmmmm",getallTokens);
+
 
     useEffect(() => {
-        fetchData();
-    }, [account])
+        getdata();
+    }, [address])
+
+    const account = getallTokens.id ? getallTokens.id : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
+    // const account = getallToken ? getallToken.Accounts ? getallToken.Accounts.length > 0 ? getallToken.Accounts[0]?.id : '' : '' : "";
 
 
     return (
@@ -64,8 +36,9 @@ const Sidebar = () => {
 
                         <div className="inner-wallet outer-main">
                             <div className="left">
-                                <h4 className="white">River Tools Token <i class="far fa-clone"></i></h4>
-                                <p>[ TOOLS ] ajkdzx7zxy32jnsdn...</p>
+                                <h4 className="white">{getallTokens?.name} <i class="far fa-clone"></i></h4>
+                                {/* <p>{getallToken.id}</p> */}
+                                 <p>{account == "" ? "" : `${account.substring(0, 6)}...${account.substring( account.length - 4 )}`}</p>
                             </div>
                             <div className="outerss">
                                 <div className="socisls">
@@ -91,7 +64,7 @@ const Sidebar = () => {
                         </div>
                         <div className="up-wallet">
                             <div className="left">
-                                <h5><i class="fas fa-arrow-alt-circle-up"></i>$0.68345</h5>
+                                <h5><i class="fas fa-arrow-alt-circle-up"></i>{getallTokens.priceUSD ? parseFloat(getallTokens.priceUSD).toFixed(6) : ''}</h5>
                             </div>
                             <div className="right">
                                 <button>Buy / Sell</button>
@@ -101,20 +74,18 @@ const Sidebar = () => {
                             <div className="lefts">
                                 <p>Total Liquidity:</p>
                                 <p>Daily volume:</p>
-                                <p>Pooled MOVR:</p>
-                                <p>Pooled TOOLS:</p>
+                                <p>Liquidity:</p>
+                                <p>Symbol:</p>
                                 <p>Total tx:</p>
-                                <p>Holders:</p>
                                 <p>Diluted Market Cap:</p>
                             </div>
                             <div className="rights text-right">
-                                <p>US $116,402</p>
-                                <p>US $116,402</p>
-                                <p>US $116,402</p>
-                                <p>US $116,402</p>
-                                <p>US $116,402</p>
-                                <p>1000</p>
-                                <p>US $116,402</p>
+                                <p>{ getallTokens.totalLiquidityUSD ? parseFloat(getallTokens.totalLiquidityUSD).toFixed(5) : ''}</p>
+                                <p>{ getallTokens.dailyVolumeUSD ? parseFloat(getallTokens.dailyVolumeUSD).toFixed(5) : '' }</p>
+                                <p>{ getallTokens.totalLiquidityETH ? parseFloat(getallTokens.totalLiquidityETH).toFixed(5) : ''}</p>
+                                <p>{getallTokens.symbol}</p>
+                                <p>{getallTokens.txCount}</p>
+                                <p>{ getallTokens.dailyVolumeToken ? parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(5) : ''}</p>
                             </div>
                         </div>
                     </div>
@@ -142,7 +113,7 @@ const Sidebar = () => {
 
                 </div>
                 <div className="brdr"></div>
-                {!account ?
+                {/* {!account ?
                     <div className="row" >
                         <div className="col-sm-12 text-center">
                             <div className="inner-wallet">
@@ -158,14 +129,14 @@ const Sidebar = () => {
                                     <thead>
                                         <tr>
                                             <th scope="col" className="grey">Tokens</th>
-                                            {/* <th scope="col" className="grey">Price</th> */}
+                                            <th scope="col" className="grey">Price</th>
                                             <th scope="col" className="grey">Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {token_data}
 
-                                        {/* <tr>
+                                        <tr>
                                     <td>
                                         <ul className="list-inline">
                                             <li className="list-inline-item">
@@ -236,13 +207,13 @@ const Sidebar = () => {
                                         <h6 className="white yoyo">$143.017M</h6>
                                         <h6 className="common yoyo">$120.00</h6>
                                     </td>
-                                </tr> */}
+                                </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                }
+                } */}
             </div>
         </div>
     )
