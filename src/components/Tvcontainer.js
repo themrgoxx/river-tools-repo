@@ -22,7 +22,7 @@ function getLanguageFromURL() {
 }
 
 const defaultProps = {
-	symbol: 'AAPL',
+	symbol: 'USD',
 	containerId: 'tv_chart_container',
 	datafeedUrl: 'https://demo_feed.tradingview.com',
 	libraryPath: '/charting_library/',
@@ -40,10 +40,11 @@ const defaultProps = {
 
 export const Tvcontainer=()=> {
 	const counter = useSelector(state => state.Getinput.input);
+	const address = counter ? counter : '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D'
 	const [tokendetails, setTokenDetails] = React.useState({
         name: 'PancakeSwap Token',
-        pair: 'Cake/BNB',
-        sybmol: 'CAKE',
+        pair: 'USD/MOVR',
+        sybmol: 'USD',
         version: 'Pancake v2',
     });
 
@@ -64,7 +65,7 @@ symbols_types: [{
 
 async function getAllSymbols() {
 	// const data = await makeApiRequest('data/v3/all/exchanges');
-	let allSymbols = [];
+	let allSymbols = ['solarbeam','moonswap'];
 	
 	// for (const exchange of configurationData.exchanges) {
 	// 	const pairs = data.Data[exchange.value].pairs;
@@ -130,17 +131,18 @@ const datafeed= {
 				// 	onResolveErrorCallback('cannot resolve symbol');
 				// 	return;
 				// }
-				const response = await axios.get(`http://ec2-34-215-106-249.us-west-2.compute.amazonaws.com:9000/tokenDetails/${counter}`);
-                 setTokenDetails(response.data)
+				// const response = await axios.get(`http://192.168.18.46:21000/solarbeam/tokenDetails/`+ address);
+                //  setTokenDetails(response.data)
 				const symbolInfo = {
-					ticker: response.data.pair,
-					name: response.data.pair,
-					description: response.data.sybmol,
+					ticker: "MOVR",
+					name: "MOVR",
+					description: "SolarBeam",
 					type: 'crypto',
 					session: '24x7',
 					timezone: 'Etc/UTC',
-					exchange: response.data.version,
+					exchange: 'SolarBeam',
 					minmov: 1,
+					load_last_chart:true,
 					pricescale: 100,
 					has_intraday: true,
 					has_no_volume: true,
@@ -161,8 +163,7 @@ const datafeed= {
 
 		try {
 		
-			const data = await makeApiRequest1(counter?counter:'0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82');
-			// console.log("here==",data)
+			const data = await makeApiRequest1(address ? address: '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B');
 			if (!firstDataRequest) {
 				// "noData" should be set if there is no data in the requested period.
 				onHistoryCallback([], {
@@ -173,12 +174,14 @@ const datafeed= {
 			let bars = [];
 			// if(data.data.data){
 				data.map((bar , i) =>{
+					let d = parseInt(bar.time)
+					let  de = new Date(d * 1000)
 					let obj = {
-						time: new Date(bar.time).toString(),
-						low: (bar.low)*(bar.baseLow),
-                        high: (bar.high)*(bar.baseHigh),
-                        open: (bar.open)*(bar.baseOpen),
-                        close: (bar.close)*(bar.baseClose),
+						time: (de),
+						low: (bar.low) ,
+                        high: (bar.high),
+                        open: (bar.open),
+                        close: (bar.close),
 						isBarClosed : true,
 						isLastBar : false,
 					}
@@ -255,6 +258,7 @@ const datafeed= {
 			disabled_features: ['study_templates'],
 			has_intraday:true,
 			client_id: defaultProps.clientId,
+			load_last_chart:true,
 			user_id: defaultProps.userId,
 			fullscreen: defaultProps.fullscreen,
 			autosize: defaultProps.autosize,
@@ -284,7 +288,7 @@ const datafeed= {
 
 	React.useEffect(()=>{
 		getWidget();
-	},[counter])
+	},[address])
 	
 
 	// componentWillUnmount() {

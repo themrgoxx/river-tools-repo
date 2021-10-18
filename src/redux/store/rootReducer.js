@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { UserReducer,InputReducer } from "../Reducers/index";
+import { ToggleReducer,InputReducer } from "../Reducers/index";
 
 const rootReducer = combineReducers({
-  UserReducer,
+  Getmark:ToggleReducer,
   Getinput:InputReducer
 });
 

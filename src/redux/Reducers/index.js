@@ -1,5 +1,9 @@
 let initState = {
-  input:"0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B"
+  input:"0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D"
+};
+
+let initMark = {
+  mark: false
 };
 
 export const UserReducer = (state = initState, action) => {
@@ -31,6 +35,19 @@ export const InputReducer = (state = initState,{type,payload}) => {
         return{
           ...state,
           input:payload
+        }
+
+    default:
+      return state;
+  }
+};
+
+export const ToggleReducer = (state = initMark,{type,payload}) => {
+  switch (type) {
+      case 'Toggler':
+        return{
+          ...state,
+          mark:payload
         }
 
     default:

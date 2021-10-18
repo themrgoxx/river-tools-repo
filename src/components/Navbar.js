@@ -3,16 +3,19 @@ import '../css/navbar.scss'
 import axios from 'axios'
 import { useWeb3React } from '@web3-react/core'
 import useAuth from '../hooks/useAuth'
-import { useSelector } from 'react-redux';
 import Trades from "./Trades";
-
 import { inputAction } from '../redux/action/index';
-import { useDispatch } from 'react-redux'
+import { toggler } from '../redux/action/index'
+import { useDispatch,useSelector } from 'react-redux'
 const Navbar = () => {
     const { account } = useWeb3React();
     const { login, logout } = useAuth();
-    const counter = useSelector(state => state.Getinput.input);
-    console.log("countrttrt", counter)
+    const [open, setOpen] = useState(true);
+    const [tog, setTog] = useState(true);
+    const [addressSearch, setAddressSearch] = useState('');
+    localStorage.setItem('token', addressSearch);
+    const data123 = localStorage.getItem('token');
+   
     const dispatch = useDispatch()
     //   const balance = useTokenBalance();
     //   const busdBalance = new BigNumber(getBalanceNumber(balance, 9)).multipliedBy(0).toNumber();
@@ -24,12 +27,24 @@ const Navbar = () => {
         }
     }
 
+    const handleChangeCHeckbox = (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        console.log("valueeeee:::",value)
+    }
 
-    const [open, setOpen] = useState(true);
-    const [addressSearch, setAddressSearch] = useState('');
-    localStorage.setItem('token', addressSearch);
-    const data123 = localStorage.getItem('token');
-    console.log('addresssss in navbar', data123);
+    const Mark = useSelector(state => state.Getmark.mark);
+    console.log("mark", Mark)
+
+
+      const Toggles=()=>{
+          if(Mark){
+              dispatch(toggler(false))
+          }else{
+            dispatch(toggler(true))
+          }
+      }
+
+  
     // useEffect(() => {
     //   const getalldata=()=>{
     //     axios.post("http://192.168.18.65:8080/tokenStats",{address:addressSearch || "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"}).then((response)=>{
@@ -85,17 +100,16 @@ const Navbar = () => {
                     <div className="btnn">
                         <form className="form-inline  my-2 my-lg-0">
                             <ul className="list-inline">
-                               
                                 <li className="list-inline-item">
                                     <div>
-                                    <span className="grey">Pancake</span>
+                                    <span className="grey">Solarbeam</span>
                                     &nbsp;&nbsp;
                                         <label class="switch">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" checked={Mark} onClick={Toggles} />
                                             <span class="slider"></span>
                                         </label>
                                         &nbsp;&nbsp; 
-                                        <span className="grey">Uniswap</span>
+                                        <span className="grey">moonswap</span>
                                     </div>
                                 </li>
                             </ul>

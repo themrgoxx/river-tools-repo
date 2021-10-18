@@ -5,24 +5,36 @@ import axios from 'axios';
 const Sidebar = () => {
     const [getallTokens, setAllTokens] = useState([])
     const counter = useSelector(state => state.Getinput.input);
+    const Mark = useSelector(state => state.Getmark.mark);
     const address= counter ? counter : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
 
        const getdata = () => {
-        axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/tokenDetails/" + address)
+        if(Mark== false){
+            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/tokenDetails/" + address)
             .then((response) => {
                 setAllTokens(response.data)
                 // setUserDetail(response.data.detail.user)
                 // setOpen(true)
 
             })
+        }else{
+            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/tokenDetails/" + address)
+            .then((response) => {
+                setAllTokens(response.data)
+                // setUserDetail(response.data.detail.user)
+                // setOpen(true)
+    
+            })
+        }
     }
 
-    console.log("mmmmmmmmmmmmmmmmm",getallTokens);
+
+
 
 
     useEffect(() => {
         getdata();
-    }, [address])
+    }, [address, Mark])
 
     const account = getallTokens.id ? getallTokens.id : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
     // const account = getallToken ? getallToken.Accounts ? getallToken.Accounts.length > 0 ? getallToken.Accounts[0]?.id : '' : '' : "";

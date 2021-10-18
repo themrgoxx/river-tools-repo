@@ -48,4 +48,14 @@ export const ContarctAction = (Useraccount, txiContract,amount,recipt) => async 
      }
       
     }
+
+    export const toggler=(data)=>{
+
+      console.log("data in action",data);
+       return{
+         type:'Toggler',
+         payload:data
+       }
+        
+      }
   

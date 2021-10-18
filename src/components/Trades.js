@@ -4,7 +4,6 @@ import { useWeb3React } from '@web3-react/core'
 import axios from 'axios';
 import { inputAction } from '../redux/action/index';
 import { useSelector,useDispatch } from 'react-redux';
-
 const Trades = () => {
     const { account } = useWeb3React();
     const dispatch = useDispatch()
@@ -12,6 +11,8 @@ const Trades = () => {
     // const n=date.getTime()
     // console.log('sfsdf',n)
     date.setDate(date.getDate() - 13);
+    const Mark = useSelector(state => state.Getmark.mark);
+  
     const d = new Date()
     const [data, setData] = useState([]);
     const [YourTrades, setYourTrades] = useState([]);
@@ -23,21 +24,31 @@ const Trades = () => {
     const [promoted, setpromoted] = useState([])
 
     const getdata = () => {
-        axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/trades/" + address)
+        if(Mark== false){
+            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/trades/" + address)
             .then((response) => {
                 setpromoted(response.data.swaps)
                 // setUserDetail(response.data.detail.user)
                 // setOpen(true)
 
             })
+        }else{
+            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/trades/" + address)
+            .then((response) => {
+                setpromoted(response.data.swaps)
+                // setUserDetail(response.data.detail.user)
+                // setOpen(true)
+
+            })
+        }
+      
     }
 
-    console.log("ssdfds",promoted)
  
 
     useEffect(() => {
         getdata();
-    }, [counter])
+    }, [counter, Mark])
 
     // const liquidityV2decimal = alldata.liquidityV2;
     // const liquidityV2BNB = alldata.liquidityV2BNB;
@@ -89,20 +100,20 @@ const Trades = () => {
     // });
 
     const PromortedTab = promoted.map(elem => {
-        const d = parseInt(elem?.timestamp)
-        const date= new Date(d)
+        let d = parseInt(elem?.timestamp)
+        let  de = new Date(d * 1000)
         return (
             <tr>
             <td className="">
-                <h6 className="grey yoyo">{(date.toString().split('GMT')[0])}</h6>
+                <h6 className="grey yoyo">{(de.toDateString())}</h6>
             </td>
             {/* <td className=""><h6 className="grey yoyo">Buy</h6></td> */}
-            <td className=""><h6 className="grey yoyo">{elem?.amountUSD}</h6></td>
-            <td className=""><h6 className="grey yoyo">{elem?.amount0In}</h6></td>
-            <td className=""><h6 className="grey yoyo">{elem?.amount1Out}</h6></td>
+            <td className=""><h6 className="grey yoyo">{parseFloat(elem?.amountUSD).toFixed(4)}</h6></td>
+            <td className=""><h6 className="grey yoyo">{parseFloat(elem.amount0In != 0 ? elem?.amount0In : elem.amount0Out).toFixed(4)}</h6></td>
+            <td className=""><h6 className="grey yoyo">{parseFloat(elem.amount1Out != 0 ? elem?.amount1Out : elem.amount1In).toFixed(4)}</h6></td>
             {/* <td className=""><h6 className="grey yoyo">2.00</h6></td> */}
             <td className=""><h6 className="grey yoyo">{elem?.sender}</h6></td>
-            
+            {/* + de.getDate()+" UTC "+ de.getUTCDate() */}
             {/* <td className=""><h6 className="grey yoyo">12</h6></td> */}
         </tr>
 
@@ -150,9 +161,9 @@ const Trades = () => {
                                                     <tr>
                                                         <th scope="col" className="grey">Date</th>
                                                         {/* <th scope="col" className="grey">Type</th> */}
-                                                        <th scope="col" className="grey">Price USD</th>
-                                                        <th scope="col" className="grey">Token Price</th>
-                                                        <th scope="col" className="grey">Amount</th>
+                                                        <th scope="col" className="grey">Amount USD</th>
+                                                        <th scope="col" className="grey">Amount MOVR</th>
+                                                        <th scope="col" className="grey">Amount Token</th>
                                                         {/* <th scope="col" className="grey">Total MOVR</th> */}
                                                         <th scope="col" className="grey">Sender</th>
                                                         {/* <th scope="col" className="grey">Others</th> */}
