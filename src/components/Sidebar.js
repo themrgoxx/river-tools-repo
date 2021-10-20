@@ -75,7 +75,7 @@ const Sidebar = () => {
                         </div>
                         <div className="up-wallet">
                             <div className="left">
-                                <h5><i class="fas fa-arrow-alt-circle-up"></i>{getallTokens.priceUSD ? parseFloat(getallTokens.priceUSD).toFixed(6) : ''}</h5>
+                                <h5><i class="fas fa-arrow-alt-circle-up"></i>{getallTokens.priceUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.priceUSD).toFixed(3))  : ''}</h5>
                             </div>
                             <div className="right">
                                 <button>Buy / Sell</button>
