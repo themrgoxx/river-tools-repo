@@ -1,13 +1,5 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-import 'core-js/es/promise';
-import 'core-js/es/array';
-import 'core-js/es/string';
-import 'core-js/es/map';
-import 'core-js/es/number';
-import 'core-js/es/math';
-import 'core-js/es/array';
-import 'core-js/es/object';
 import './App.scss';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';

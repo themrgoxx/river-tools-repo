@@ -1,11 +1,11 @@
-import 'core-js/es/promise';
-import 'core-js/es/array';
-import 'core-js/es/string';
-import 'core-js/es/map';
-import 'core-js/es/number';
-import 'core-js/es/math';
-import 'core-js/es/array';
-import 'core-js/es/object';
+// import 'core-js/es/promise';
+// import 'core-js/es/array';
+// import 'core-js/es/string';
+// import 'core-js/es/map';
+// import 'core-js/es/number';
+// import 'core-js/es/math';
+// import 'core-js/es/array';
+// import 'core-js/es/object';
 import * as React from 'react';
 import '../css/chart.css';
 import axios from 'axios';
@@ -42,7 +42,7 @@ export const Tvcontainer=()=> {
 	const counter = useSelector(state => state.Getinput.input);
 	const address = counter ? counter : '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D'
 	const [tokendetails, setTokenDetails] = React.useState({
-        name: 'PancakeSwap Token',
+        name: 'solarBeam Token',
         pair: 'USD/MOVR',
         sybmol: 'USD',
         version: 'Pancake v2',
@@ -51,7 +51,7 @@ export const Tvcontainer=()=> {
 	const lastBarsCache = new Map();
 
  const configurationData = {
-	supported_resolutions: ["1", "5", "15", "30", "60", "240", "1D"],
+	supported_resolutions: ["1","60"],
 
 symbols_types: [{
 	name: 'crypto',
@@ -163,7 +163,7 @@ const datafeed= {
 
 		try {
 		
-			const data = await makeApiRequest1(address ? address: '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B');
+			const data = await makeApiRequest1(address ? address: '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D');
 			if (!firstDataRequest) {
 				// "noData" should be set if there is no data in the requested period.
 				onHistoryCallback([], {
@@ -176,7 +176,19 @@ const datafeed= {
 				data.map((bar , i) =>{
 					let d = parseInt(bar.time)
 					let  de = new Date(d * 1000)
-					let obj = {
+					let obj=''
+					if(address== '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D'){
+						obj = {
+							time: (de),
+							low: (bar.low /15000000) ,
+							high: (bar.high  /15000000),
+							open: (bar.open  /15000000),
+							close: (bar.close  /15000000),
+							isBarClosed : true,
+							isLastBar : false,
+						}
+					}else{
+						obj={
 						time: (de),
 						low: (bar.low) ,
                         high: (bar.high),
@@ -185,6 +197,7 @@ const datafeed= {
 						isBarClosed : true,
 						isLastBar : false,
 					}
+				}
 					// if(i == data.length -1 ){
 					// 	obj.isLastBar = true
 					// 	obj.isBarClosed = false

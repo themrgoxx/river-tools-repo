@@ -42,10 +42,9 @@ const Sidebar = () => {
 
     return (
         <div className="main">
-            <div className="head-tile d-none d-sm-block">
+            <div className="head-tile">
                 <div className="row">
-                    <div className="col-sm-12 col-6 p-0">
-
+                    <div className="col-sm-12 p-0">
                         <div className="inner-wallet outer-main">
                             <div className="left">
                                 <h4 className="white">{getallTokens?.name} <i class="far fa-clone"></i></h4>
@@ -92,12 +91,12 @@ const Sidebar = () => {
                                 <p>Diluted Market Cap:</p>
                             </div>
                             <div className="rights text-right">
-                                <p>{ getallTokens.totalLiquidityUSD ? parseFloat(getallTokens.totalLiquidityUSD).toFixed(5) : ''}</p>
-                                <p>{ getallTokens.dailyVolumeUSD ? parseFloat(getallTokens.dailyVolumeUSD).toFixed(5) : '' }</p>
-                                <p>{ getallTokens.totalLiquidityETH ? parseFloat(getallTokens.totalLiquidityETH).toFixed(5) : ''}</p>
+                                <p>{ getallTokens.totalLiquidityUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityUSD).toFixed(3))  : ''}</p>
+                                <p>{ getallTokens.dailyVolumeUSD ?  new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeUSD).toFixed(3))  : '' }</p>
+                                <p>{ getallTokens.totalLiquidityETH ?  new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityETH).toFixed(3))  : ''}</p>
                                 <p>{getallTokens.symbol}</p>
-                                <p>{getallTokens.txCount}</p>
-                                <p>{ getallTokens.dailyVolumeToken ? parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(5) : ''}</p>
+                                <p>{ new Intl.NumberFormat().format (getallTokens.txCount)}</p>
+                                <p>{ getallTokens.dailyVolumeToken ?  new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(3))  : ''}</p>
                             </div>
                         </div>
                     </div>
