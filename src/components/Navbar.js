@@ -72,12 +72,12 @@ const Navbar = () => {
                     </a>
 
                     <ul className="list-inline">
-                        {/* <li className="list-inline-item">
+                        <li className="list-inline-item">
                             <a className="" type="button" onClick={ConnectionHandler}>
                                 {account ? <img src="\chrtapp-assets\wallet-icon-disconnect.svg" alt="" className="img-fluid for-xs2" /> : <img src="\chrtapp-assets\wallet-icon-connect.svg" alt="" className="img-fluid for-xs2" />}
-                                <img src="\chrtapp-assets\search-icon.svg" alt="" className="img-fluid for-xs" />
+                                {/* <img src="\chrtapp-assets\search-icon.svg" alt="" className="img-fluid for-xs" /> */}
                             </a>
-                        </li> */}
+                        </li>
                         <li className="list-inline-item d-block d-sm-none">
                             {/* <div className="style-bar"></div> */}
                             <a className="" onClick={searchbar}  >
@@ -118,15 +118,18 @@ const Navbar = () => {
                             <ul className="list-inline">
                                 <li className="list-inline-item">
                                     <div>
-                                        <span className="grey">Solarbeam</span>
+                                        <span className="grey"><span><img src="/chrtapp-assets/solarbeam-logo.png"></img></span></span>
                                         &nbsp;&nbsp;
                                         <label class="switch">
                                             <input type="checkbox" checked={Mark} onClick={Toggles} />
                                             <span class="slider"></span>
                                         </label>
                                         &nbsp;&nbsp;
-                                        <span className="grey">moonswap</span>
+                                        <span className="grey"><img src="/chrtapp-assets/moonswap-logo.png"></img></span>
                                     </div>
+                                </li>
+                                <li className="list-inline-item ml-5  level">
+                                    <button className={account ? 'btn-commons2 my-2 my-sm-0' : 'btn-commons1 my-2 my-sm-0'} onClick={ConnectionHandler}>{account ? 'DISCONNECT' : 'CONNECT WALLET'}</button>
                                 </li>
                             </ul>
                         </form>

@@ -54,7 +54,7 @@
             background-color: transparent;
             border: none;
             padding: 10px 20px 10px 35px;
-            width: 500px;
+            width: 363px;
             color: #fff;
         }
         img {
@@ -97,7 +97,9 @@
   overflow: hidden;
   transition: 0.2s;
 }
-
+.level{
+    margin-left: 8.5rem!important;
+}
 .slider:before
 {
   position: absolute;

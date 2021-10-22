@@ -1,5 +1,5 @@
 .TVChartContainer {
-	height: 100vh;
+	height: 500px;
 	padding-top: 17px;
 
 	
@@ -22,6 +22,16 @@
 }
 .scrollWrap-3gtPS0Fe .noScrollBar-ieMwbfur{
 	display: none!important;
+}
+
+@media only screen and (max-width: 991) {
+	.TVChartContainer {
+		height: 403px;
+		padding-top: 17px;
+		margin-left: 0px;
+	
+		
+	}
 }
 
 @media only screen and (max-width: 600px) {

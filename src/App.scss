@@ -169,6 +169,52 @@ html{
        outline: none;
      }
   }
+
+  .btn-commons1 {
+    background: #1ab9af;
+    border: 1px solid #1ab9af;
+    box-sizing: border-box;
+    border-radius: 6px;
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      font-size: 13px;
+      width: 100%;
+      // border: 1px solid #f9c73c;
+  
+    //   &:hover {
+    //    color: #fff;
+    //    box-shadow: 0px 10px 14px rgba(33, 42, 56, 0.3);
+    //    background-color: #f9c73c;
+    //  }
+ 
+     &:focus {
+       outline: none;
+     }
+  }
+
+  .btn-commons2 {
+    background: #b93a1a;
+    border: 1px solid #b9321a;
+    box-sizing: border-box;
+    border-radius: 6px;
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      font-size: 13px;
+      width: 100%;
+      // border: 1px solid #f9c73c;
+  
+    //   &:hover {
+    //    color: #fff;
+    //    box-shadow: 0px 10px 14px rgba(33, 42, 56, 0.3);
+    //    background-color: #f9c73c;
+    //  }
+ 
+     &:focus {
+       outline: none;
+     }
+  }
   
    .ptb {
       padding: 60px 0;
