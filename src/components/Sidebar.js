@@ -83,9 +83,9 @@ const Sidebar = () => {
                         </div>
                         <div className="lower-contentt d-flex justify-content-between">
                             <div className="lefts">
-                                <p>Total Liquidity:</p>
+                                <p>Total Liquidity($):</p>
                                 <p>Daily volume:</p>
-                                <p>Liquidity:</p>
+                                <p>MOVR Liquidity:</p>
                                 <p>Symbol:</p>
                                 <p>Total tx:</p>
                                 <p>Diluted Market Cap:</p>

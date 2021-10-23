@@ -203,6 +203,7 @@ html{
       text-decoration: none;
       font-size: 13px;
       width: 100%;
+      
       // border: 1px solid #f9c73c;
   
     //   &:hover {
@@ -215,7 +216,8 @@ html{
        outline: none;
      }
   }
-  
+
+
    .ptb {
       padding: 60px 0;
   }
@@ -288,6 +290,10 @@ html{
         outline: none;
       }
   }
+
+  .hiiden_btn{
+    display: none !important;
+  }
    
     h1 {
       font-size: 3.5rem !important;
@@ -336,6 +342,9 @@ html{
         .ptb {
           padding: 20px 0;
       }
+      .hiiden_btn{
+        display: none !important;
+      }
       }
   // 12 pro max 
       @media only screen 
@@ -358,6 +367,9 @@ html{
       
         .ptb {
           padding: 20px 0;
+      }
+      .hiiden_btn{
+        display: none !important;
       }
       }
 

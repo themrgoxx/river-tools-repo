@@ -1,5 +1,5 @@
 .TVChartContainer {
-	height: 500px;
+	height: 530px;
 	padding-top: 17px;
 
 	
@@ -26,7 +26,7 @@
 
 @media only screen and (max-width: 991) {
 	.TVChartContainer {
-		height: 403px;
+		height: 423px;
 		padding-top: 17px;
 		margin-left: 0px;
 	
@@ -36,7 +36,7 @@
 
 @media only screen and (max-width: 600px) {
 	.TVChartContainer {
-		height: 400px;
+		height: 420px;
 		padding-top: 17px;
 		margin-left: 0px;
 	

@@ -36,10 +36,10 @@ function App() {
                 {/* <Abc /> */}
 
                 <div class="row">
-                  <div className="col-sm-5">
+                  <div className="col-sm-4">
                     <Sidebar />
                   </div>
-                  <div class="col-sm-7">
+                  <div class="col-sm-8">
                     <Tvcontainer />
                   </div>
 
