@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 const Sidebar = () => {
     const [getallTokens, setAllTokens] = useState([])
+    const [getholders, setGetholders] = useState()
     const counter = useSelector(state => state.Getinput.input);
     const Mark = useSelector(state => state.Getmark.mark);
     const address= counter ? counter : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
@@ -29,16 +30,22 @@ const Sidebar = () => {
     }
 
 
-
+    const holders= () =>{
+        axios.get("https://api.covalenthq.com/v1/1285/tokens/" + address + "/token_holders/?key=ckey_2c226135fcc8473d83a4916ce94")
+        .then((response) => {
+            setGetholders(response.data.data.pagination.total_count)
+        })
+    }
 
 
     useEffect(() => {
         getdata();
+        holders()
     }, [address, Mark])
 
     const account = getallTokens.id ? getallTokens.id : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
     // const account = getallToken ? getallToken.Accounts ? getallToken.Accounts.length > 0 ? getallToken.Accounts[0]?.id : '' : '' : "";
-
+console.log("holders",getholders)
 
     return (
         <div className="main">
@@ -88,6 +95,7 @@ const Sidebar = () => {
                                 <p>MOVR Liquidity:</p>
                                 <p>Symbol:</p>
                                 <p>Total tx:</p>
+                                <p>Holders:</p>
                                 <p>Diluted Market Cap:</p>
                             </div>
                             <div className="rights text-right">
@@ -96,7 +104,8 @@ const Sidebar = () => {
                                 <p>MOVR { getallTokens.totalLiquidityETH ?  new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityETH).toFixed(3))  : '0'}</p>
                                 <p>{getallTokens.symbol}</p>
                                 <p>{getallTokens.txCount ? new Intl.NumberFormat().format (getallTokens.txCount) : '0'}</p>
-                                <p>$ { getallTokens.dailyVolumeToken ?  new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(3))  : '0'}</p>
+                                <p>{getholders? getholders : '0' }</p>
+                                <p>${ getallTokens.dailyVolumeToken ?  new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(3))  : '0'}</p>
                             </div>
                         </div>
                     </div>

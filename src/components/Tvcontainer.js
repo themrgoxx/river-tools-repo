@@ -191,10 +191,10 @@ export const Tvcontainer = () => {
 					if (address == '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D') {
 						obj = {
 							time: (de),
-							low: (bar.low / 15000000),
-							high: (bar.high / 15000000),
-							open: (bar.open / 15000000),
-							close: (bar.close / 15000000),
+							low: (bar.low ),
+							high: (bar.high ),
+							open: (bar.open ),
+							close: (bar.close ),
 							isBarClosed: true,
 							isLastBar: false,
 						}
@@ -312,7 +312,7 @@ export const Tvcontainer = () => {
 
 	React.useEffect(() => {
 		getWidget();
-	}, [counter,Mark])
+	}, [Mark,counter])
 
 
 	// componentWillUnmount() {
