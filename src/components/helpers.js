@@ -33,7 +33,7 @@ export async function makeApiRequest1(path,Mark) {
 			}
 	}else{
 		try {
-			const response=	await axios.post(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/chart`,{address :path,limit :1500,period :3600,skip :0})
+			const response=	await axios.post(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/chart`,{address :path,limit :1000,period :3600,skip :0})
 			const abc= response.data
 					return abc;
 				

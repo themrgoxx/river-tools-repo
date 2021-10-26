@@ -184,31 +184,18 @@ export const Tvcontainer = () => {
 				}
 				let bars = [];
 				// if(data.data.data){
-				data.map((bar, i) => {
+					data.map((bar, i) => {
 					let d = parseInt(bar.time)
 					let de = new Date(d * 1000)
-					let obj = ''
-					if (address == '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D') {
-						obj = {
+					let	obj = {
 							time: (de),
-							low: (bar.low ),
-							high: (bar.high ),
-							open: (bar.open ),
-							close: (bar.close ),
+							low: parseFloat(bar.low ),
+							high: parseFloat(bar.high ),
+							open: parseFloat(bar.open ),
+							close: parseFloat(bar.close ),
 							isBarClosed: true,
 							isLastBar: false,
 						}
-					} else {
-						obj = {
-							time: (de),
-							low: (bar.low),
-							high: (bar.high),
-							open: (bar.open),
-							close: (bar.close),
-							isBarClosed: true,
-							isLastBar: false,
-						}
-					}
 					// if(i == data.length -1 ){
 					// 	obj.isLastBar = true
 					// 	obj.isBarClosed = false
