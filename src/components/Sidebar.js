@@ -8,9 +8,24 @@ const Sidebar = () => {
     const counter = useSelector(state => state.Getinput.input);
     const Mark = useSelector(state => state.Getmark.mark);
     const address= counter ? counter : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
+    const Get_data1 = `
+    {
+        token(id: "${address.toLowerCase()}"){
+          name
+          symbol
+          decimals
+          derivedETH
+          tradeVolumeUSD
+          totalLiquidity
+          txCount
+        }
+       }`
 
-       const getdata = () => {
+
+       const getdata = async () => {
         if(Mark== false){
+            // const queryResult = await axios.get('https://thegraph.com/hosted-service/subgraph/moonfarmin/moonswap-dex/', { query: Get_data1 });
+            // console.log("ressss::::::::",queryResult)
             axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/tokenDetails/" + address)
             .then((response) => {
                 setAllTokens(response.data)
@@ -27,7 +42,7 @@ const Sidebar = () => {
     
             })
         }
-    }
+    } 
 
 
     const holders= () =>{

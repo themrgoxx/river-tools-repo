@@ -185,10 +185,8 @@ export const Tvcontainer = () => {
 				let bars = [];
 				// if(data.data.data){
 					data.map((bar, i) => {
-					let d = parseInt(bar.time)
-					let de = new Date(d * 1000)
 					let	obj = {
-							time: (de),
+							time: (bar.time * 1000),
 							low: parseFloat(bar.low ),
 							high: parseFloat(bar.high ),
 							open: parseFloat(bar.open ),
