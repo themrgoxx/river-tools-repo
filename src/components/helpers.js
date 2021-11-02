@@ -1,25 +1,55 @@
 // Make requests to CryptoCompare API
-export async function makeApiRequest(path) {
-    // try {
-    //     const response = await fetch(`https://api.sphynxswap.finance/tokenDetails/${path}`);
-    //     return response.json();
-    // } catch (error) {
-    //     throw new Error(`CryptoCompare request error: ${error.status}`);
-    // }
-}
+import axios from "axios";
 
-export async function makeApiRequest1(path) {
-	try {
-		const response = await fetch(`http://ec2-34-215-106-249.us-west-2.compute.amazonaws.com:9000/chart/${path}` , {
-			method : "GET",
-			headers: {
-				'Content-Type': 'application/json'
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			  }});
-		return response.json();
-	} catch (error) {
-		throw new Error(`CryptoCompare request error: ${error.status}`);
+// export async function makeApiRequest(path) {
+//     try {
+//         const response = await fetch(`https://api.sphynxswap.finance/tokenDetails/${path}`);
+//         return response.json();
+//     } catch (error) {
+//         throw new Error(`CryptoCompare request error: ${error.status}`);
+//     }
+// }
+
+
+
+export async function makeApiRequest1(path,Mark) {
+	console.log("MArk:::::::::in helper",Mark)
+	if(Mark== false){
+		try {
+			const response=	await axios.post(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/chart`,{address :path,limit :1000,period :3600,skip :0})
+			const abc= response.data
+					return abc;
+				
+				// const response = await fetch(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/chart` , { 
+				// 	method : "post",
+				// 	body: {address :path,limit :1000,period :3600,skip :0},
+				// 	headers: {
+				// 		'Content-Type': 'application/json'
+				// 		// 'Content-Type': 'application/x-www-form-urlencoded',
+				// 	  }});
+				
+			} catch (error) {
+				throw new Error(`CryptoCompare request error: ${error.status}`);
+			}
+	}else{
+		try {
+			const response=	await axios.post(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/chart`,{address :path,limit :1000,period :3600,skip :0})
+			const abc= response.data
+					return abc;
+				
+				// const response = await fetch(`http://192.168.18.46:21000/solarbeam/chart` , { 
+				// 	method : "post",
+				// 	body: {address :path,limit :1000,period :3600,skip :0},
+				// 	headers: {
+				// 		'Content-Type': 'application/json'
+				// 		// 'Content-Type': 'application/x-www-form-urlencoded',
+				// 	  }});
+				
+			} catch (error) {
+				throw new Error(`CryptoCompare request error: ${error.status}`);
+			}
 	}
+
 }
 
 // Generate a symbol ID from a pair of the coins
