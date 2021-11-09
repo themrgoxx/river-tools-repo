@@ -1,5 +1,6 @@
 // Make requests to CryptoCompare API
 import axios from "axios";
+import { API_URL } from '../utils/Environment'
 
 // export async function makeApiRequest(path) {
 //     try {
@@ -13,10 +14,10 @@ import axios from "axios";
 
 
 export async function makeApiRequest1(path,Mark) {
-	console.log("MArk:::::::::in helper",Mark)
-	if(Mark== false){
+	console.log("markk in helper",Mark)
+	if(Mark== true){
 		try {
-			const response=	await axios.post(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/chart`,{address :path,limit :1000,period :3600,skip :0})
+			const response=	await axios.post(`${API_URL}/solarbeam/chart`,{address :path,limit :1000,period :3600,skip :0})
 			const abc= response.data
 					return abc;
 				
@@ -33,7 +34,7 @@ export async function makeApiRequest1(path,Mark) {
 			}
 	}else{
 		try {
-			const response=	await axios.post(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/chart`,{address :path,limit :1000,period :3600,skip :0})
+			const response=	await axios.post(`${API_URL}/moonswap/chart`,{address :path,limit :1000,period :3600,skip :0})
 			const abc= response.data
 					return abc;
 				

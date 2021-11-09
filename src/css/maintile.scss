@@ -181,6 +181,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
         .left{
             i{
                 color: #1ab9af;
@@ -198,11 +199,10 @@
                 border-radius: 50px;
                 box-shadow: none;
                 border: none;
-                padding: 8px 15px;
+                padding: 8px 14px;
                 font-size: 20px;
             }
         }
-       
     }
     .lower-contentt{
         margin-top: 20px;
@@ -441,12 +441,43 @@
 .red{
     h6{
         color:#c30c0c !important;
+        a{
+            color:#c30c0c !important; 
+            text-decoration: underline!important;
+            &:hover{
+                color: rgb(0, 140, 255)!important;
+            }
+        }
     }
 }
 .green{
     h6{
         color: #40a511!important;
+        a{
+            color: #40a511!important;
+            text-decoration: underline!important;
+            &:hover{
+                color: rgb(0, 140, 255)!important;
+            }
+        }
     }
+}
+
+.ssa{
+    background-color: transparent;
+    border: none;
+    color: red!important;
+}
+
+.tooltip{
+    background-color: blue!important;
+    color: red!important;
+}
+
+
+
+.copy{
+    font-size: 12px!important;
 }
 
 
