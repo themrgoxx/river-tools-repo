@@ -156,7 +156,7 @@ export const Tvcontainer = () => {
 				exchange: Mark==true ? 'SolarBeam' : 'MoonSwap',
 				minmov: 1,
 				load_last_chart: true,
-				pricescale: 100,
+				pricescale: 10000,
 				has_intraday: true,
 				has_no_volume: true,
 				has_weekly_and_monthly: true,
