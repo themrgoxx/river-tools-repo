@@ -173,7 +173,7 @@ const Navbar = () => {
                         </div>
                     </nav>
                     <div className="banner d-flex justify-content-center">
-                        <img src="/chrtapp-assets/ad-banners.png" className="img-fluid"></img>
+                        <img src="/chrtapp-assets/banner.png" className="img-fluid"></img>
                     </div>
                 </div>
             </section>
