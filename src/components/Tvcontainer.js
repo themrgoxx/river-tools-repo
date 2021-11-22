@@ -10,6 +10,7 @@ import * as React from 'react';
 import '../css/chart.css';
 import axios from 'axios';
 import { widget } from '../charting_library';
+import { API_URL } from '../utils/Environment'
 import { useSelector } from 'react-redux';
 // import datafed from './datafeed'
 import {
@@ -42,13 +43,14 @@ const defaultProps = {
 
 export const Tvcontainer = () => {
 	const counter = useSelector(state => state.Getinput.input);
-	const address = counter ? counter : '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D'
+	const address = counter ? counter : '0x5853ccBDc428d5fC9F8C1d3599B252C88477b460'
 	const Mark = useSelector(state => state.Getmark.mark);
 	const [tokendetails, setTokenDetails] = React.useState({
-		name: 'USD COIN',
-		pair: 'MOVR/USD COIN',
-		sybmol: 'USD',
-		version: 'Solarbeam',
+			name: 'Rivertool Token',
+			pair: 'Tool/WMOR',
+			sybmol: 'Tool',
+
+		// version: {Mark == false ? 'SolarBeam': 'MoonSwap'},
 	});
 
 	const lastBarsCache = new Map();
@@ -68,7 +70,7 @@ export const Tvcontainer = () => {
 
 	async function getAllSymbols() {
 		// const data = await makeApiRequest('data/v3/all/exchanges');
-		let allSymbols = ['solarbeam', 'moonswap'];
+		let allSymbols = ['moonswap'];
 
 		// for (const exchange of configurationData.exchanges) {
 		// 	const pairs = data.Data[exchange.value].pairs;
@@ -134,26 +136,27 @@ export const Tvcontainer = () => {
 			// 	onResolveErrorCallback('cannot resolve symbol');
 			// 	return;
 			// }
-			console.log("idhr a rh hai ya nahi")
 			let response=''
-			if(Mark== false){
-				 response = await axios.get(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/tokenDetails/${address}`);
+			if(Mark == true){
+				 response = await axios.get(`${API_URL}/solarbeam/tokenDetails/${address}`);
+				 setTokenDetails(response.data)
 			}else{
-				 response = await axios.get(`http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/tokenDetails/${address}`);	
+				 response = await axios.get(`${API_URL}/moonswap/tokenDetails/${address}`);	
+				 setTokenDetails(response.data)
 			}
 			
-			setTokenDetails(response.data)
+			
 			const symbolInfo = {
-				ticker: response.data.symbol,
-				name: 'MOVR' + '/' + response.data.name,
-				description: '',
+				// ticker: response.data.symbol,
+				name: response.data.symbol ? response.data.symbol +  '/'  + 'WMOVR' : ''   ,
+				// description: '',
 				type: 'crypto',
 				session: '24x7',
 				timezone: 'Etc/UTC',
-				exchange: 'SolarBeam',
+				exchange: Mark==true ? 'SolarBeam' : 'MoonSwap',
 				minmov: 1,
 				load_last_chart: true,
-				pricescale: 100,
+				pricescale: 10000,
 				has_intraday: true,
 				has_no_volume: true,
 				has_weekly_and_monthly: true,
@@ -165,7 +168,7 @@ export const Tvcontainer = () => {
 			// console.log('[resolveSymbol]: Symbol resolved', symbolName);
 			onSymbolResolvedCallback(symbolInfo);
 		},
-
+  
 		getBars: async (symbolInfo, resolution, periodParams, onHistoryCallback, onErrorCallback) => {
 
 			// const counter = GetCounter()
@@ -173,8 +176,8 @@ export const Tvcontainer = () => {
 
 			try {
 
-				const data = await makeApiRequest1(address ? address : '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D',Mark);
-				console.log("dtat", data)
+				const data = await makeApiRequest1(address ? address : '0x5853ccBDc428d5fC9F8C1d3599B252C88477b460',Mark);
+				console.log("dtat:::::::", data)
 				if (!firstDataRequest) {
 					// "noData" should be set if there is no data in the requested period.
 					onHistoryCallback([], {
@@ -185,10 +188,8 @@ export const Tvcontainer = () => {
 				let bars = [];
 				// if(data.data.data){
 					data.map((bar, i) => {
-					let d = parseInt(bar.time)
-					let de = new Date(d * 1000)
 					let	obj = {
-							time: (de),
+							time: (bar.time * 1000),
 							low: parseFloat(bar.low ),
 							high: parseFloat(bar.high ),
 							open: parseFloat(bar.open ),
@@ -215,7 +216,7 @@ export const Tvcontainer = () => {
 					noData: true,
 				});
 			} catch (error) {
-				// console.log('[getBars]: Get error', error);
+				console.log('[getBars]: Get error', error);
 				onErrorCallback(error);
 			}
 		},
@@ -246,7 +247,7 @@ export const Tvcontainer = () => {
 
 
 	// tvWidget = null;
-
+	console.log("namemmem",tokendetails);
 	const getWidget = () => {
 
 		const widgetOptions = {
@@ -260,7 +261,7 @@ export const Tvcontainer = () => {
 			library_path: defaultProps.libraryPath,
 			theme: 'Dark',
 			has_weekly_and_monthly: true,
-			header_widget: true,
+			header_widget: false,
 			save_image: false,
 			locale: getLanguageFromURL() || 'en',
 			enabled_features: ['use_localstorage_for_settings'],

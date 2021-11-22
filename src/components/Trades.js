@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import '../css/maintile.scss';
 import { useWeb3React } from '@web3-react/core'
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { inputAction } from '../redux/action/index';
+import { API_URL } from '../utils/Environment'
 import { useSelector, useDispatch } from 'react-redux';
 const Trades = () => {
     const { account } = useWeb3React();
@@ -17,26 +19,23 @@ const Trades = () => {
     // const inputToken = localStorage.getItem('token');
 
     const counter = useSelector(state => state.Getinput.input);
-    const address = counter ? counter : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
+    const address = counter ? counter : '0x5853ccBDc428d5fC9F8C1d3599B252C88477b460'
 
     const [promoted, setpromoted] = useState([])
-
     const getdata = () => {
-        if (Mark == false) {
-            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/trades/" + address)
+        if (Mark == true) {
+            axios.get(`${API_URL}/solarbeam/trades/` + address)
                 .then((response) => {
-                    setpromoted(response?.data.swaps)
+                        setpromoted(response.data.swaps)
                     // setUserDetail(response.data.detail.user)
                     // setOpen(true)
-
                 })
         } else {
-            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/trades/" + address)
+            axios.get(`${API_URL}/moonswap/trades/` + address)
                 .then((response) => {
                     setpromoted(response.data.swaps)
                     // setUserDetail(response.data.detail.user)
                     // setOpen(true)
-
                 })
         }
 
@@ -61,10 +60,19 @@ const Trades = () => {
                 </td>
                 <td className=""><h6 className={elem.sender == elem.to ? 'green' : 'red'}>{elem.sender == elem.to ? 'Buy' : 'Sell'}</h6></td>
                 <td className=""><h6 className="grey yoyo">$ {parseFloat(elem?.amountUSD).toFixed(4)}</h6></td>
+                {!Mark ?
+                <>
                 <td className=""><h6 className="grey yoyo"> {parseFloat(elem.amount0In != 0 ? elem?.amount0In : elem.amount0Out).toFixed(4)} {elem?.pair.token0.symbol}</h6></td>
                 <td className=""><h6 className="grey yoyo">{parseFloat(elem.amount1Out != 0 ? elem?.amount1Out : elem.amount1In).toFixed(4)} {elem?.pair.token1.symbol}</h6></td>
+                </>
+:
+                <>
+                <td className=""><h6 className="grey yoyo">{parseFloat(elem.amount1Out != 0 ? elem?.amount1Out : elem.amount1In).toFixed(4)} {elem?.pair.token1.symbol}</h6></td>
+                <td className=""><h6 className="grey yoyo"> {parseFloat(elem.amount0In != 0 ? elem?.amount0In : elem.amount0Out).toFixed(4)} {elem?.pair.token0.symbol}</h6></td>
+                </>
+    }
                 {/* <td className=""><h6 className="grey yoyo">2.00</h6></td> */}
-                <td className=""><h6 className="grey yoyo">{elem?.sender}</h6></td>
+                <td className=""><h6 className="grey yoyo"> <a href={`https://moonriver.moonscan.io/address/` + elem?.sender} target='_blank'>{elem?.sender}</a></h6></td>
                 {/* + de.getDate()+" UTC "+ de.getUTCDate() */}
                 {/* <td className=""><h6 className="grey yoyo">12</h6></td> */}
             </tr>
@@ -72,7 +80,7 @@ const Trades = () => {
         )
     });
 
-
+    
 
     return (
         <div className="main">
@@ -110,7 +118,7 @@ const Trades = () => {
                                                 </thead>
                                                 <tbody>
                                                     {/* {data[0] ? tableData: null} */}
-                                                    {PromortedTab ? PromortedTab : ''}
+                                                    {PromortedTab.length > 0 ? PromortedTab : ''}
                                                     {/*                                                 
                                                                 <tr>
                                                                     <td className="">

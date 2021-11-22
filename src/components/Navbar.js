@@ -47,13 +47,8 @@ const Navbar = () => {
     }
     const handleChangeCHeckbox = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        console.log("valueeeee:::", value)
     }
-
-
-
     const Mark = useSelector(state => state.Getmark.mark);
-    console.log("mark", Mark)
 
 
     const Toggles = () => {
@@ -63,7 +58,6 @@ const Navbar = () => {
             dispatch(toggler(true))
         }
     }
-
 
     // useEffect(() => {
     //   const getalldata=()=>{
@@ -114,7 +108,6 @@ const Navbar = () => {
                         <div>
                             <button className="menu" onClick={Onchange}><i class="fas fa-bars" ></i></button>
                         </div>
-
                         <ul className="list-inline">
                             <li className="list-inline-item">
                                 <a className="" type="button" onClick={ConnectionHandler}>
@@ -162,14 +155,14 @@ const Navbar = () => {
                                 <ul className="list-inline">
                                     <li className="list-inline-item">
                                         <div>
-                                            <span className="grey"><span><img src="/chrtapp-assets/solarbeam-logo.png"></img></span></span>
+                                            <span className="grey"><span><img src="/chrtapp-assets/moonswap-logo.png"></img></span></span>
                                             &nbsp;&nbsp;
                                             <label class="switch">
                                                 <input type="checkbox" checked={Mark} onClick={Toggles} />
                                                 <span class="slider"></span>
                                             </label>
                                             &nbsp;&nbsp;
-                                            <span className="grey"><img src="/chrtapp-assets/moonswap-logo.png"></img></span>
+                                            <span className="grey"><img src="/chrtapp-assets/solarbeam-logo.png"></img></span>
                                         </div>
                                     </li>
                                     <li className="list-inline-item ml-5  level">
@@ -180,7 +173,7 @@ const Navbar = () => {
                         </div>
                     </nav>
                     <div className="banner d-flex justify-content-center">
-                        <img src="/chrtapp-assets/ad-banners.png" className="img-fluid"></img>
+                        <img src="/chrtapp-assets/banner.png" className="img-fluid"></img>
                     </div>
                 </div>
             </section>

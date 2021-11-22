@@ -1,39 +1,75 @@
 import React, { useEffect, useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import '../css/maintile.scss';
 import { useSelector } from 'react-redux';
+import { API_URL } from '../utils/Environment'
 import axios from 'axios';
 const Sidebar = () => {
     const [getallTokens, setAllTokens] = useState([])
+    const [copied, setCopied] = useState(false);
+    const [social, setSocial] = useState();
     const [getholders, setGetholders] = useState()
     const counter = useSelector(state => state.Getinput.input);
     const Mark = useSelector(state => state.Getmark.mark);
-    const address= counter ? counter : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
-
-       const getdata = () => {
-        if(Mark== false){
-            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/solarbeam/tokenDetails/" + address)
-            .then((response) => {
-                setAllTokens(response.data)
-                // setUserDetail(response.data.detail.user)
-                // setOpen(true)
-
-            })
-        }else{
-            axios.get("http://ec2-54-213-239-106.us-west-2.compute.amazonaws.com:21000/moonswap/tokenDetails/" + address)
-            .then((response) => {
-                setAllTokens(response.data)
-                // setUserDetail(response.data.detail.user)
-                // setOpen(true)
-    
-            })
+    const address = counter ? counter : '0x5853ccBDc428d5fC9F8C1d3599B252C88477b460'
+    const Get_data1 = `
+    {
+        token(id: "${address.toLowerCase()}"){
+          name
+          symbol
+          decimals
+          derivedETH
+          tradeVolumeUSD
+          totalLiquidity
+          txCount
         }
+       }`
+
+
+    const getdata = async () => {
+        if (Mark == true) {
+            // const queryResult = await axios.get('https://thegraph.com/hosted-service/subgraph/moonfarmin/moonswap-dex/', { query: Get_data1 });
+            // console.log("ressss::::::::",queryResult)
+            axios.get(`${API_URL}/solarbeam/tokenDetails/` + address)
+                .then((response) => {
+                    setAllTokens(response.data)
+                    // setUserDetail(response.data.detail.user)
+                    // setOpen(true)
+
+                })
+        } else {
+            axios.get(`${API_URL}/moonswap/tokenDetails/` + address)
+                .then((response) => {
+                    setAllTokens(response.data)
+                    // setUserDetail(response.data.detail.user)
+                    // setOpen(true)
+
+                })
+        }
+    }
+    const copy = () => {
+        setTimeout(
+            function () {
+                setCopied(false)
+            },
+            1000
+        );
+
     }
 
 
-    const holders= () =>{
+    const holders = () => {
         axios.get("https://api.covalenthq.com/v1/1285/tokens/" + address + "/token_holders/?key=ckey_2c226135fcc8473d83a4916ce94")
+            .then((response) => {
+                setGetholders(response.data.data.pagination.total_count)
+            })
+    }
+
+    const getsocial = () =>{
+        axios.get(`${API_URL}/socials/` + address)
         .then((response) => {
-            setGetholders(response.data.data.pagination.total_count)
+            setSocial(response.data)
+
         })
     }
 
@@ -41,11 +77,11 @@ const Sidebar = () => {
     useEffect(() => {
         getdata();
         holders()
+        getsocial()
     }, [address, Mark])
 
-    const account = getallTokens.id ? getallTokens.id : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
+    // const account = getallTokens.id ? getallTokens.id : '0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B'
     // const account = getallToken ? getallToken.Accounts ? getallToken.Accounts.length > 0 ? getallToken.Accounts[0]?.id : '' : '' : "";
-console.log("holders",getholders)
 
     return (
         <div className="main">
@@ -54,35 +90,43 @@ console.log("holders",getholders)
                     <div className="col-sm-12 p-0">
                         <div className="inner-wallet outer-main">
                             <div className="left">
-                                <h4 className="white">{getallTokens?.name} <i class="far fa-clone"></i></h4>
+                                <h4 className="white">{getallTokens?.name}
+                                    <p>{address == "" ? "" : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`}
+                                        <span >  <CopyToClipboard text={address} onCopy={() => setCopied(true)}>
+                                            <button id="anim" type="button" class="ssa" data-toggle="tooltip" data-placement="left" title="Copy Address">
+                                                <div onClick={copy}>{copied == true ? <p className="copy">Copied</p> : <i class="far fa-clone" ></i>} </div>
+                                            </button>
+                                        </CopyToClipboard></span>
+                                    </p>
+                                </h4>
                                 {/* <p>{getallToken.id}</p> */}
-                                 <p>{account == "" ? "" : `${account.substring(0, 6)}...${account.substring( account.length - 4 )}`}</p>
+                             
                             </div>
                             <div className="outerss">
                                 <div className="socisls">
                                     <div className="inner">
-                                        <i class="fab fa-telegram-plane"></i>
+                                        <a href={social?.telegram} target="_blank"><i class="fab fa-telegram-plane"></i></a>
                                     </div>
                                     <div className="inner">
-                                        <i class="fab fa-twitter"></i>
+                                        <a href={social?.twitter} target="_blank"><i class="fab fa-twitter"></i></a>
                                     </div>
                                     <div className="inner">
-                                        <i class="fab fa-github"></i>
+                                        <a href={social?.website} target="_blank"> <i class="fas fa-window-maximize"></i></a>
                                     </div>
                                 </div>
-                                <div className="yellow d-flex">
+                                {/* <div className="yellow d-flex">
                                     <div className="inner">
                                         <i class="fas fa-share-alt"></i>
                                     </div>
                                     <div className="inner">
                                         <i class="fas fa-share-alt"></i>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="up-wallet">
                             <div className="left">
-                                <h5><i class="fas fa-arrow-alt-circle-up"></i>${getallTokens.priceUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.priceUSD).toFixed(3))  : ''}</h5>
+                                <h5><i class="fas fa-arrow-alt-circle-up"></i>${getallTokens.priceUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.priceUSD).toFixed(5)) : ''}</h5>
                             </div>
                             <div className="right">
                                 <button>Buy / Sell</button>
@@ -99,13 +143,13 @@ console.log("holders",getholders)
                                 <p>Diluted Market Cap:</p>
                             </div>
                             <div className="rights text-right">
-                                <p>$ { getallTokens.totalLiquidityUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityUSD).toFixed(3))  : '0'}</p>
-                                <p>$ { getallTokens.dailyVolumeUSD ?  new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeUSD).toFixed(3))  : '0' }</p>
-                                <p>MOVR { getallTokens.totalLiquidityETH ?  new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityETH).toFixed(3))  : '0'}</p>
+                                <p>$ {getallTokens.totalLiquidityUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityUSD).toFixed(3)) : '0'}</p>
+                                <p>$ {getallTokens.dailyVolumeUSD ? new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeUSD).toFixed(3)) : '0'}</p>
+                                <p>MOVR {getallTokens.totalLiquidityETH ? new Intl.NumberFormat().format(parseFloat(getallTokens.totalLiquidityETH).toFixed(3)) : '0'}</p>
                                 <p>{getallTokens.symbol}</p>
-                                <p>{getallTokens.txCount ? new Intl.NumberFormat().format (getallTokens.txCount) : '0'}</p>
-                                <p>{getholders? getholders : '0' }</p>
-                                <p>${ getallTokens.dailyVolumeToken ?  new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(3))  : '0'}</p>
+                                <p>{getallTokens.txCount ? new Intl.NumberFormat().format(getallTokens.txCount) : '0'}</p>
+                                <p>{getholders ? getholders : '0'}</p>
+                                <p>${getallTokens.dailyVolumeToken ? new Intl.NumberFormat().format(parseFloat(getallTokens.dailyVolumeToken * getallTokens.priceUSD).toFixed(3)) : '0'}</p>
                             </div>
                         </div>
                     </div>
@@ -127,10 +171,8 @@ console.log("holders",getholders)
                                     </div>
                                 </li>
                             </ul>
-
                         </div>
                     </div> */}
-
                 </div>
                 <div className="brdr"></div>
                 {/* {!account ?
