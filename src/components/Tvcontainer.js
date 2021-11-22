@@ -176,7 +176,7 @@ export const Tvcontainer = () => {
 
 			try {
 
-				const data = await makeApiRequest1(address ? address : '0x5853ccBDc428d5fC9F8C1d3599B252C88477b460',Mark);
+				let data = await makeApiRequest1(address ? address : '0x5853ccBDc428d5fC9F8C1d3599B252C88477b460',Mark);
 				console.log("dtat:::::::", data)
 				if (!firstDataRequest) {
 					// "noData" should be set if there is no data in the requested period.
@@ -187,6 +187,7 @@ export const Tvcontainer = () => {
 				}
 				let bars = [];
 				// if(data.data.data){
+					data = data.reverse()
 					data.map((bar, i) => {
 					let	obj = {
 							time: (bar.time * 1000),
